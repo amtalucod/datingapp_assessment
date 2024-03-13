@@ -2,10 +2,12 @@ source "https://rubygems.org"
 
 ruby "3.3.0"
 
-# Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3", ">= 7.1.3.2"
 
-# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
+gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
+
+gem 'rails-controller-testing', '~> 0.0.3'
+
 gem "sprockets-rails"
 
 # Use postgresql as the database for Active Record
