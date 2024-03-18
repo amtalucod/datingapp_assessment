@@ -3,6 +3,4 @@
 //= link_tree ../../javascript .js
 //= link_tree ../../../vendor/javascript .js
 
-//= require jquery
-//= require jquery-ujs
-//= require jquery.ui.all
+
