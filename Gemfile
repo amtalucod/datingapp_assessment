@@ -12,6 +12,14 @@ gem 'bcrypt', '~> 3.1', '>= 3.1.12'
 
 gem 'byebug', '~> 11.1', '>= 11.1.3'
 
+gem 'jquery-rails', '~> 4.6'
+
+gem 'will_paginate', '~> 3.3.0'
+
+gem 'bootstrap-will_paginate', '~> 1.0'
+
+gem 'faker', '~> 3.2', '>= 3.2.3'
+
 gem "sprockets-rails"
 
 # Use postgresql as the database for Active Record
