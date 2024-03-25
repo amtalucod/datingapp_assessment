@@ -77,8 +77,15 @@ test:
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
-production:
-  <<: *default
-  database: sampleapp_amt_production
-  username: sampleapp_amt
-  password: <%= ENV["SAMPLEAPP_AMT_DATABASE_PASSWORD"] %>
+  production:
+    <<: *default
+    database: sampleapp_amt_production
+    username: sampleapp_amt
+    password: <%= ENV["SAMPLEAPP_AMT_DATABASE_PASSWORD"] %>
+
+#production:
+#  <<: *default
+#  adapter: postgresql
+#  encoding: unicode
+#  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+#  url: <%= ENV['DATABASE_URL'] %>
