@@ -7,3 +7,23 @@
 </p>
 <a href="https://google.com"><em>Google </em></a>
 
+
+
+<%= select_tag :options, options_for_select({ "Option 1" => "1", "Option 2" => "2", "Option 3" => "3" }) %>
+
+<div> Price is: <p id="price">0</p></div>
+
+<script>
+    document.getElementById("options").addEventListener("change", event => {
+        setPrice();
+    });
+    
+    function setPrice()
+    {
+        var list = { "1": "10", "2": "20", "3": "30"};
+        var price = list[document.getElementById("options").value];
+        document.getElementById("price").innerHTML= price;
+    }
+    setPrice();
+    
+</script>

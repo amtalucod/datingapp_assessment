@@ -4,6 +4,10 @@ import "controllers"
 import { Turbo } from "@hotwired/turbo-rails"
 Turbo.session.drive = false
 
+document.addEventListener("click", event => {
+    const element = event.target.closest("[data-confirm]")
 
-
-
+    if (element && !confirm(element.dataset.confirm)) {
+        event.preventDefault()
+    }
+})

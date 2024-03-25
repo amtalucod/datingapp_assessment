@@ -1,0 +1,20 @@
+<p style="color: green"><%= notice %></p>
+
+<h1> 
+  <%= current_user.name %> </br>
+  
+</h1>
+
+<div id="bookings">
+  <% @bookings.each do |booking| %>
+    <% if booking.user_id == current_user.id %>
+      <%= render booking %>
+      <p>
+        <%= link_to "Show this booking", booking %>
+      </p>
+    <% end %>
+    
+  <% end %>
+</div>
+
+<%= link_to "New booking", hotels_path %>
