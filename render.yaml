@@ -1,11 +1,12 @@
 databases:
   - name: sampleapp_amt
-    ipAllowList: []
+    databaseName: sampleapp_amt
+    user: sampleapp_amt
     plan: free
 
 services:
   - type: web
-    name: sampleapp
+    name: sampleapp_amt
     env: ruby
     buildCommand: "./bin/render-build.sh"
     startCommand: bundle exec rails s
