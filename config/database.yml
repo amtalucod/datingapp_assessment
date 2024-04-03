@@ -80,9 +80,10 @@ test:
 #
   production:
     <<: *default
-    database: sampleapp2_amt_test_production
-    username: sampleapp2_amt_test
-    password: <%= ENV["SAMPLEAPP2_AMT_TEST_DATABASE_PASSWORD"] %>
+    
+    database: datingapp_amt_production
+    username: datingapp_amt_test
+    password: <%= ENV["DATINGAPP_AMT_DATABASE_PASSWORD"] %>
 
 #production:
 # <<: *default

@@ -1,12 +1,12 @@
 databases:
-  - name: sampleapp2_amt_test
-    databaseName: ssampleapp2_amt_test
-    user: sampleapp2_amt_test
+  - name: datingapp_amt
+    databaseName: datingapp_amt
+    user: datingapp_amt
     plan: free
 
 services:
   - type: web
-    name: sampleapp2_amt_test
+    name: datingapp_amt
     env: ruby
     buildCommand: "./bin/render-build.sh"
     startCommand: bundle exec rails s
@@ -16,7 +16,7 @@ services:
         sync: false
       - key: DATABASE_URL
         fromDatabase:
-          name: sampleapp2_amt_test
+          name: datingapp_amt
           property: connectionString
   - type: redis
     name: redis
