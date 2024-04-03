@@ -1,6 +1,15 @@
 <% provide(:title, "Help") %>
 
 <h1>Help</h1>
+
+
+<%= form_with(model: @image, url: images_path, method: :post, local: true, multipart: true) do |form| %>
+    <%= form.label :file, 'Choose Image' %>
+    <%= form.file_field :file %>
+    <%= form.submit 'Upload Image' %>
+  <% end %>
+  
+  
 <p>
     Get help on the Ruby on rails Tutorial at the 
     <a href="http://www.railstutorial.org">Rails Tutorials Help page</a>.

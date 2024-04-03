@@ -1,0 +1,14 @@
+development:
+  cloud_name: "dwfxnxn2b"
+  api_key: "516463886178232"
+  api_secret: "rdhb6_O961Nvq2EIWmq6yaD84Y0"
+  
+  test:
+  cloud_name: "dwfxnxn2b"
+  api_key: "516463886178232"
+  api_secret: "rdhb6_O961Nvq2EIWmq6yaD84Y0"
+  
+  production:
+  cloud_name: "dwfxnxn2b"
+  api_key: "516463886178232"
+  api_secret: "rdhb6_O961Nvq2EIWmq6yaD84Y0"

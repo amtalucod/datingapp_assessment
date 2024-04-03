@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  resources :bookings
-  resources :hotels
+  
   get 'sessions/new'
   get 'users/new'
   root 'static_pages#home'
@@ -11,9 +10,21 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   get '/logout' => 'sessions#destroy'
-  get '/bookings/:id/new' => 'bookings#new'
   resources :users
+  get '/show' => 'images#show'
+  get '/new' => 'images#new'
+  get '/test_cloudinary', to: 'test#cloudinary_test'
   
+  get '/likedpage' => 'swipes#likedpage'
+  get '/swipes' => 'swipes#index'
+  resources :swipes do
+    member do
+      post :like
+      post :dislike
+    end
+  end
   
+  get 'matches', to: 'swipes#matches'
   
+  #post '/swipes/:id/like' => 'swipes#index'
 end

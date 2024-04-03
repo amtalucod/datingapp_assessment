@@ -1,0 +1,20 @@
+<%#= @swipe.liked_user.first_name %> </br>
+<%#= @swipe.liked_user %> </br>
+
+<h1>All Swipes</h1>
+<% if @swipes.present? %>
+  <% @swipes.each do |swipe| %>
+    <% if swipe.liked %>
+    <div>
+      <%= image_tag swipe.liked_user&.photos, width: "150px" %>
+      <p><strong>Liked User:</strong> <%= swipe.liked_user&.first_name %> </p>
+      <p><strong>ID:</strong> <%= swipe.liked_user&.id %> </p>
+      <%= button_to "Delete User", swipe.liked_user, method: :delete,
+                                     data: { confirm: "You sure?" }  %>
+      <!-- Add more attributes of the swipe as needed -->
+    </div>
+  <% end %>
+  <% end %>
+<% else %>
+  <p>No swipes found.</p>
+<% end %>

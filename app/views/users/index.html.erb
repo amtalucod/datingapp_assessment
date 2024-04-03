@@ -1,21 +1,46 @@
 <% provide(:title, 'All users') %>
+<br />
 <h1>All users</h1>
 
-<%= will_paginate %>
+<table class="table table-hover table-bordered">
+    <thead class="table-success">
+      <tr>
+        <th> </th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>View</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        
+        
+      </tr>
+    </thead>
+    
+    <tbody>
+      <% @users.each do |user| %>
+        <% unless user.admin? %>
+          <tr>
+            <td><%= image_tag user.photos, width: "50px", height: "70px", style: "object-fit: cover;" %></td>
+            <td><%= user.first_name %></td>
+            <td><%= user.last_name %></td>
+            <td><%= link_to "View", user %></td>
+            <td><%= link_to "Edit", edit_user_path(user) %></td>
+            <td><%= button_to "Delete", user, method: :delete,
+                                      data: { confirm: "You sure?" }  %></td>
+        <% end %>
+      <% end %>
+    </tbody>
+</table>
 
 
-<ul class="users">
-    <% @users.each do |user| %>
-        <li>
-            <%= gravatar_for user, size: 50 %>
-            <%= link_to user.name, user %>
-                <% if current_user.admin? && !current_user?(user) %>
-                          |  <%= button_to "Delete User", user, method: :delete,
-                                     data: { confirm: "You sure?" }, id: "deleteButton"  %>
-                            | <%= button_to "My Booking", bookings_path(current_user) %>
-                <% end %>
-        </li>
-    <% end %>
-</ul>
 
-<%= will_paginate %>
+
+<script>
+    document.addEventListener("click", event => {
+        const element = event.target.closest("[data-confirm]")
+
+        if (element && !confirm(element.dataset.confirm)) {
+            event.preventDefault()
+        }
+    })
+</script>

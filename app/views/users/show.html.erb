@@ -1,15 +1,30 @@
-<% provide(:title, @user.name) %>
+<% provide(:title, "Profile") %>
 
-<div class="row">
-    <aside class="col-md-4">
-        <section class="user_info">
-            <h1>
-                <%= gravatar_for @user %>
-                <%= @user.name %>
-            </h1>
-        </section>
-    </aside>
+</br>
+<div class="container bg-success-subtle">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="jumbotron">
+        <%= image_tag @user.photos, width: "150px" %>
+        <h3 class="display-4"><%= "#{@user.first_name} #{@user.last_name}"  %></h3>
+        <p class="lead"><%= @user.location&.city %> | <%= @user.location&.state_region %> | <%= @user.location&.country %></p>
+        <hr class="my-4">
+        <p><%= @user.bio %></p>
+        </br>
+        
+        <h4><%= link_to "My Matches", matches_path %></h5>
+        </br>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+
+
+
+
+          
 
 
 

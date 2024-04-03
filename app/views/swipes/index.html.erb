@@ -1,0 +1,33 @@
+<% provide(:title, 'All users') %>
+<br />
+<% if @users.any? %>
+  <% user = @users.first %>
+  <div class="user-profile">
+    <%= image_tag user.photos, width: "150px" %>
+    <h2><%= user.first_name %> <%= user.last_name %></h2>
+    <p><%= user.location %></p>
+   
+    <p><%= user.bio %></p>
+    <%= button_to "Like", like_swipe_path(user), method: :post %>
+    <%= button_to "Dislike", dislike_swipe_path(user), method: :post %>
+  </div>
+<% else %>
+  <p>No more profiles to show.</p>
+<% end %>
+
+<% if @users.any? %>
+  <div class="card" style="width: 18rem;">
+    <%= image_tag user.photos, class: "card-img-top", alt: "..." %>
+  
+    <div class="card-body">
+      <h4 class="card-title"><%= user.first_name %> <%= user.last_name %></h4>
+      <h7><%= user.location.country %> | <%= user.location.state_region %> | <%= user.location.city %> </h7>
+      <p class="card-text"><%= user.bio %></p>
+      <%= button_to "Like", like_swipe_path(user), method: :post, class: "btn btn-primary" %> | 
+      <%= button_to "Dislike", dislike_swipe_path(user), method: :post, class: "btn btn-danger" %>
+    </div>
+  </div>
+  <% else %>
+    <p>No more profiles to show.</p>
+<% end %>
+

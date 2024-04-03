@@ -1,0 +1,30 @@
+<h1>Your Matches</h1>
+
+<% if @matches.present? %>
+  <% @matches.each do |matched_user| %>
+    <% next if matched_user == current_user %>
+    <div>
+        <%= image_tag matched_user&.photos, width: "150px" %>
+      <h2><%= matched_user&.first_name %> <%= matched_user&.last_name %></h2>
+    </div>
+  <% end %>
+<% else %>
+  <p>No matches found.</p>
+<% end %>
+
+
+<div class="card" style="width: 10rem;">
+  <% if @matches.present? %>
+  <% @matches.each do |matched_user| %>
+    <% next if matched_user == current_user %>
+    <div>
+        <%= image_tag matched_user&.photos, height: "150px", style: "object-fit: cover;", class: "card-img-top" %>
+        <div class="card-body">
+          <h6><p class="card-text"><%= matched_user&.first_name %> <%= matched_user&.last_name %></p></h6>
+        </div>
+    </div>
+  <% end %>
+  <% else %>
+    <h4>No matches found.</h4>
+  <% end %>
+</div>

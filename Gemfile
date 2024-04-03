@@ -22,6 +22,8 @@ gem 'faker', '~> 3.2', '>= 3.2.3'
 
 gem "sprockets-rails"
 
+gem 'cloudinary'
+
 # Use postgresql as the database for Active Record
 gem 'pg'
 
