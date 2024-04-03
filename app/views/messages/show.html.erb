@@ -1,0 +1,16 @@
+<h2>Conversation with <%= @recipient.first_name %></h2>
+<ul>
+  <% @messages.each do |message| %>
+    <li><%= message.content %> - <%= message.created_at %></li>
+  <% end %>
+</ul>
+
+<%= form_with(url: messages_path, method: :post) do |f| %>
+  <%= f.hidden_field :recipient_id, value: @recipient.id %>
+  <%= f.text_area :content %>
+  <%= f.submit "Send" %>
+  <br/>
+  <%= current_user.id %>
+  <br/>
+  <%= @recipient.id %>
+<% end %>

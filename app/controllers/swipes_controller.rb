@@ -18,7 +18,7 @@ class SwipesController < ApplicationController
       liked_swipes = current_user.swipes.where(liked: true)
       matched_swipes = liked_swipes.select do |swipe|
         current_user.swipes.exists?(liked_user_id: swipe.user_id, liked: true)
-      end
+    end
 
       @matches = matched_swipes.map(&:liked_user)
     end

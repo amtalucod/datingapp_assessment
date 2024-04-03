@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   
   get '/likedpage' => 'swipes#likedpage'
   get '/swipes' => 'swipes#index'
+  get 'matches', to: 'swipes#matches'
   resources :swipes do
     member do
       post :like
@@ -24,7 +25,8 @@ Rails.application.routes.draw do
     end
   end
   
-  get 'matches', to: 'swipes#matches'
-  
-  #post '/swipes/:id/like' => 'swipes#index'
+  get '/messages/:id' => 'messages#show', as: 'messages'
+  #post '/message/:id?' => 'messages#create'
+  #resources :messages, only: [:index, :create]
+  post '/messages/:id' => 'messages#create'
 end

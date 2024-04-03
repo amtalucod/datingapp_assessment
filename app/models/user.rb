@@ -37,10 +37,13 @@ class User < ApplicationRecord
     belongs_to :location
     accepts_nested_attributes_for :location 
     
-    has_many :swipes, dependent: :destroy
+    has_many :swipes
     has_many :liked_swipes, class_name: 'Swipe', foreign_key: 'user_id', dependent: :destroy
     has_many :disliked_swipes, class_name: 'Swipe', foreign_key: 'user_id', dependent: :destroy
     
+    has_many :sent_messages, class_name: 'Message'
+    has_many :received_messages, class_name: 'Message'
+  
     has_many :images
     accepts_nested_attributes_for :images
     

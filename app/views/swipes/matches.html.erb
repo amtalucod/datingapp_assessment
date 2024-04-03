@@ -21,6 +21,7 @@
         <%= image_tag matched_user&.photos, height: "150px", style: "object-fit: cover;", class: "card-img-top" %>
         <div class="card-body">
           <h6><p class="card-text"><%= matched_user&.first_name %> <%= matched_user&.last_name %></p></h6>
+          <%= button_to "Message Me", messages_path(matched_user), method: :get, class: "btn btn-primary" %>
         </div>
     </div>
   <% end %>
