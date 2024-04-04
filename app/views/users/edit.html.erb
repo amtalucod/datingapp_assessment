@@ -35,7 +35,7 @@
       </div><br />
       
       <div class="field form-group">
-          <% f.label :gender %><br />
+          <%= f.label :gender %><br />
           <%= f.text_field :gender, autofocus: true, autocomplete: "gender", class: "form-control", placeholder: "Gender" %><br />
         </div>
       
@@ -89,8 +89,8 @@
       </div>
       </br>
       <div class="field form-group">
-        <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-        <%= f.password_field :current_password, autocomplete: "current-password", class:"form-control", placeholder:" " %>
+        <% f.label :current_password %> <br />
+        <% f.password_field :current_password, autocomplete: "current-password", class:"form-control", placeholder:" " %>
       </div>
     
       <div class="actions">
@@ -107,6 +107,6 @@
   <div class="card-body">
   <div>Unhappy? <%= button_to "Cancel my account", '#', data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class:"btn btn-danger btn-sm" %></div>
     </br>
-    <%= button_to "Back", :back, class:"btn btn-success"%>
+    
   </div>
 </div>

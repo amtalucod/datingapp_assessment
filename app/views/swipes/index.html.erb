@@ -1,33 +1,58 @@
 <% provide(:title, 'All users') %>
 <br />
 <% if @users.any? %>
-  <% user = @users.first %>
-  <div class="user-profile">
-    <%= image_tag user.photos, width: "150px" %>
-    <h2><%= user.first_name %> <%= user.last_name %></h2>
-    <p><%= user.location %></p>
-   
-    <p><%= user.bio %></p>
-    <%= button_to "Like", like_swipe_path(user), method: :post %>
-    <%= button_to "Dislike", dislike_swipe_path(user), method: :post %>
-  </div>
-<% else %>
-  <p>No more profiles to show.</p>
-<% end %>
-
-<% if @users.any? %>
-  <div class="card" style="width: 18rem;">
-    <%= image_tag user.photos, class: "card-img-top", alt: "..." %>
-  
-    <div class="card-body">
-      <h4 class="card-title"><%= user.first_name %> <%= user.last_name %></h4>
-      <h7><%= user.location.country %> | <%= user.location.state_region %> | <%= user.location.city %> </h7>
-      <p class="card-text"><%= user.bio %></p>
-      <%= button_to "Like", like_swipe_path(user), method: :post, class: "btn btn-primary" %> | 
-      <%= button_to "Dislike", dislike_swipe_path(user), method: :post, class: "btn btn-danger" %>
+<% user = @users.first %>
+  <div class="d-flex justify-content-center">
+    <div class="card" style="width: 25rem;">
+      <div class="d-flex justify-content-center ">
+        <%= image_tag user.images[0].cloudinary_url, class: "img-thumbnail card-img-top", alt: "Image 1", data: { bs_toggle: "modal", bs_target: "#imageModal" }, style: "width: 400px; height: 400px; object-fit: cover;" %>
+      </div>
+      <div class="d-flex justify-content-center ">
+        <%= button_tag "Show Photo Gallery", type: "button", class: "btn btn-secondary align-self-start btn-sm", data: { bs_toggle: "modal", bs_target: "#imageModal" } %>
+      </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-center">
+            <div class="col-md-6">
+              <%= button_to "Dislike", dislike_swipe_path(user), method: :post, class: "btn btn-danger btn-lg", style: "width: 170px;" %>
+            </div>
+            <div class="col-md-6">
+              <%= button_to "Like", like_swipe_path(user), method: :post, class: "btn btn-primary btn-lg", style: "width: 170px;" %>
+            </div> 
+          </div>
+          <h4 class="card-title"><%= user.first_name %> <%= user.last_name %></h4>
+          <h7><%= user.location.country %> | <%= user.location.state_region %> | <%= user.location.city %> </h7>
+            <textarea class="form-control" rows="3" readonly><%= "Bio:\n#{user.bio}" %></textarea> <!-- Used a textarea for the bio -->
+            <!-- Modal -->
+            <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="imageModalLabel">Photo Gallery</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <% user.images.each do |image| %>
+                      <%= image_tag image.cloudinary_url, class: "img-fluid", id: "modalImage", alt: "Image", style: "width: 250px; height: 300px; object-fit: cover;" %>
+                    <% end %>  
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
     </div>
   </div>
   <% else %>
     <p>No more profiles to show.</p>
 <% end %>
 
+
+<script>
+  // Script to display clicked image in modal
+  document.querySelectorAll('.img-thumbnail').forEach(item => {
+    item.addEventListener('click', event => {
+      const imgSrc = event.target.src;
+      document.getElementById('modalImage').src = imgSrc;
+    });
+  });
+</script>

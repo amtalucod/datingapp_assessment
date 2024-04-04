@@ -1,5 +1,8 @@
 <% provide(:title, "Swipe") %>
-<br/>
+
+<h1>All Matches</h1>
+
+
 <table class="table table-hover table-bordered">
     <thead class="table-danger">
       <tr>
@@ -11,16 +14,11 @@
     
     <tbody>
         <% @matches.each do |matched_user| %>
-          <% if matched_user.present? %>
-          
           <tr>
-            <td><%= matched_user[:user]['first_name'] %></td>
-            <td><%= matched_user[:user]['last_name'] %></td>
+            <td><%= matched_user.first_name %></td>
+            <td><%= matched_user.last_name %></td>
             <td><%= matched_user[:match_count] %></td>
-          <% end %>
-        
+        <% end %>
       <% end %>
     </tbody>
 </table>
-
-

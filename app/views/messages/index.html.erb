@@ -1,6 +1,0 @@
-<h1>Messages</h1>
-<ul>
-  <% @contacts.each do |contact| %>
-    <li><%= link_to "#{contact.first_name} #{contact.last_name}", message_path(contact) %></li>
-  <% end %>
-</ul>

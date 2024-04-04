@@ -2,9 +2,20 @@
 <div class="card">
   <h5 class="card-header">Sign up</h5>
     <div class="card-body">
-      <%#= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { multipart: true }) do |f| %>
-        <%#= form_for(@user) do |f| %>
       <%= form_with(model: @user, local: true, html: { multipart: true }) do |f| %>
+        
+        <% if @user.errors.any? %>
+          <div style="color: red">
+            <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+            <ul>
+              <% @user.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        
         
         <div class="field form-group">
           <% f.label :first_name %><br />
@@ -24,16 +35,17 @@
         <div class="field form-group">
           <% f.label :email %><br />
           <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"Email" %>
-        </div>
+        </div></br>
         
         <div class="field form-group">
-          <% f.label :birthdate %><br />
+          <%= f.label :birthdate %><br />
           <%= f.date_field :birthdate, autofocus: true, autocomplete: "birthdate", class:"form-control", placeholder:"Birthdate" %>
         </div>
         
+        <br/>
         <div class="field form-group">
-          <% f.label :gender %><br />
-          <%= f.text_field :gender, autofocus: true, autocomplete: "gender", class: "form-control", placeholder: "Gender" %>
+          <%= f.label :gender %><br />
+          <%= f.select :gender, [['Male', 'male'], ['Female', 'female']], { prompt: 'Select gender' }, class: "form-control" %>
         </div>
         
         <div class="field form-group">
@@ -42,9 +54,10 @@
         </div>
         
         <div class="field form-group">
-          <% f.label :gender_interest %><br />
-          <%= f.text_field :gender_interest, autofocus: true, autocomplete: "gender-interest", class: "form-control", placeholder: "Gender Interest" %><br />
+          <%= f.label :gender_interest %><br />
+          <%= f.select :gender_interest, [['Male', 'male'], ['Female', 'female']], { prompt: 'Select gender' }, class: "form-control" %>
         </div>
+        <br/>
         
         <%= f.fields_for :location_attributes do |l| %>
         <%#= f.fields_for :location, resource.location || resource.build_location do |l| %>
@@ -60,13 +73,13 @@
         
         
 
-        <div class="field form-group">
-          <% f.label :school %><br />
+        <div class="field form-group"><br />
+          <% f.label :school %>
           <%= f.text_field :school, autofocus: true, autocomplete: "school", class: "form-control", placeholder: "School" %><br />
         </div>
 
         <div class="field form-group">
-          <% f.label :bio %><br />
+          <% f.label :bio %>
           <%= f.text_area :bio, autofocus: true, autocomplete: "bio", class: "form-control", placeholder: "Bio" %><br />
         </div>
                
@@ -74,20 +87,20 @@
           <% f.label :password %>
           <% if @minimum_password_length %>
           
-          <% end %><br />
+          <% end %>
           <%= f.password_field :password, autocomplete: "new-password", class:"form-control", placeholder:"Password (6 characters minimum)" %>
         </div>
       
         <div class="field form-group">
           <% f.label :password_confirmation %><br />
           <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control", placeholder:"Password Confirmation" %>
-        </div>
+        </div><br/>
         
         
         <!-- Image upload fields -->
         <div class="field">
-          <%= f.label :photos, "Profile Image" %>
-          <%= f.file_field :photos, multiple: false %>
+          <%= f.label :photos, "Profile Image (1 photo required, 5 photos max)" %> <br/>
+          <%= f.file_field :photos, multiple: true %>
         </div>
         
         

@@ -3,7 +3,7 @@
 <h1>All users</h1>
 
 <table class="table table-hover table-bordered">
-    <thead class="table-success">
+    <thead class="table-danger">
       <tr>
         <th> </th>
         <th>First Name</th>
@@ -20,7 +20,7 @@
       <% @users.each do |user| %>
         <% unless user.admin? %>
           <tr>
-            <td><%= image_tag user.photos, width: "50px", height: "70px", style: "object-fit: cover;" %></td>
+            <td><%= image_tag user.images[0].cloudinary_url, width: "50px", height: "70px", style: "object-fit: cover;" %></td>
             <td><%= user.first_name %></td>
             <td><%= user.last_name %></td>
             <td><%= link_to "View", user %></td>
@@ -31,8 +31,6 @@
       <% end %>
     </tbody>
 </table>
-
-
 
 
 <script>

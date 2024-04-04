@@ -1,23 +1,54 @@
 <% provide(:title, "Profile") %>
 
 </br>
-<div class="container bg-success-subtle">
+<div class="container bg-danger-subtle" >
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-10">
       <div class="jumbotron">
-        <%= image_tag @user.photos, width: "150px" %>
+      <div class="d-flex flex-column">
+        <%= image_tag @images[0].cloudinary_url, class: "img-thumbnail align-self-start", alt: "Image 1", data: { bs_toggle: "modal", bs_target: "#imageModal" }%>
+        <%= button_tag "Show Photo Gallery", type: "button", class: "btn btn-primary align-self-start", data: { bs_toggle: "modal", bs_target: "#imageModal" } %>
+      </div>
+      
         <h3 class="display-4"><%= "#{@user.first_name} #{@user.last_name}"  %></h3>
         <p class="lead"><%= @user.location&.city %> | <%= @user.location&.state_region %> | <%= @user.location&.country %></p>
         <hr class="my-4">
         <p><%= @user.bio %></p>
         </br>
-        
         <h4><%= link_to "My Matches", matches_path %></h5>
         </br>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="imageModalLabel">Photo Gallery</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <% @images.each do |image| %>
+          <%= image_tag image.cloudinary_url, class: "img-fluid", id: "modalImage", alt: "Image", style: "width: 250px; height: 300px; object-fit: cover;" %>
+        <% end %>  
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  // Script to display clicked image in modal
+  document.querySelectorAll('.img-thumbnail').forEach(item => {
+    item.addEventListener('click', event => {
+      const imgSrc = event.target.src;
+      document.getElementById('modalImage').src = imgSrc;
+    });
+  });
+</script>
 
 
 

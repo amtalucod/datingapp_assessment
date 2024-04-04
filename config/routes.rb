@@ -26,7 +26,8 @@ Rails.application.routes.draw do
   end
   
   get '/messages/:id' => 'messages#show', as: 'messages'
-  #post '/message/:id?' => 'messages#create'
-  #resources :messages, only: [:index, :create]
   post '/messages/:id' => 'messages#create'
 end
+
+
+
