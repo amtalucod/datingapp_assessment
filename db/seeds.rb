@@ -6,7 +6,7 @@
 
 # Create a main sample user.
 User.create!(first_name: "Admin User",
-                email: "superadmin3@datingapp.com",
+                email: "superadmin01@datingapp.com",
                 location_attributes: { country: "Philippines",
                                         state_region: "Region III",
                                         city: "Hagonoy"},

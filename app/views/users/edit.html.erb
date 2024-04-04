@@ -61,9 +61,6 @@
         <br />
       <% end %>
       
-      
-      
-      
       <div class="field form-group">
         <%= f.label :school %><br />
         <%= f.text_field :school, autofocus: true, autocomplete: "school", class: "form-control", placeholder: "School" %><br />
@@ -73,8 +70,6 @@
         <%= f.label :bio %><br />
         <%= f.text_area :bio, autofocus: true, autocomplete: "bio", class: "form-control", placeholder: "Bio" %><br />
       </div>
-    
-     
     
       <div class="field form-group">
         <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
@@ -105,8 +100,18 @@
 <div class="card">
   <h5 class="card-header">Cancel my account</h5>
   <div class="card-body">
-  <div>Unhappy? <%= button_to "Cancel my account", '#', data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class:"btn btn-danger btn-sm" %></div>
+  <div>Unhappy? <%= button_to "Cancel my account", current_user, data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class:"btn btn-danger btn-sm" %></div>
     </br>
     
   </div>
 </div>
+
+<script>
+    document.addEventListener("click", event => {
+        const element = event.target.closest("[data-confirm]")
+
+        if (element && !confirm(element.dataset.confirm)) {
+            event.preventDefault()
+        }
+    })
+</script>

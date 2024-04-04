@@ -14,6 +14,7 @@
     
     <tbody>
         <% @matches.each do |matched_user| %>
+            <% unless matched_user.admin? %>
           <tr>
             <td><%= matched_user.first_name %></td>
             <td><%= matched_user.last_name %></td>
