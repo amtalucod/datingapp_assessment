@@ -19,32 +19,23 @@ class User < ApplicationRecord
      validates :password, presence: true, length: { minimum: 6 }, allow_nil: true           
     
      
-    #attr_accessor :count
+   
+    
     # validate :validate_photo_count
 
+    # private
+
     # def validate_photo_count
-    #     if photo_count < 1
-    #         errors.add(:base, "At least one photo is required")
-    #     elsif photo_count > 5
-    #         errors.add(:base, "Maximum of 5 photos allowed")
+    
+    #     splitted_photos = photos.split(",").length
+    #     final_count = (splitted_photos - 1) / 4
+        
+    #     if final_count < 1
+    #     errors.add(:base, "At least one photo is required")
+    #     elsif final_count > 5
+    #     errors.add(:base, "Maximum of 5 photos allowed")
     #     end
     # end
-    
-    validate :validate_photo_count
-
-    private
-
-    def validate_photo_count
-    
-        splitted_photos = photos.split(",").length
-        final_count = (splitted_photos - 1) / 4
-        
-        if final_count < 1
-        errors.add(:base, "At least one photo is required")
-        elsif final_count > 5
-        errors.add(:base, "Maximum of 5 photos allowed")
-        end
-    end
 
     
     
