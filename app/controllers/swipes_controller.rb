@@ -1,6 +1,6 @@
 class SwipesController < ApplicationController
-  #before_action :logged_in_user, only: [:index, :matches, :likedpage]
-  #before_action :admin_user, only: [:likedpage]
+  before_action :logged_in_user, only: [:index, :matches, :likedpage]
+  before_action :admin_user, only: [:likedpage]
   
     def index
       liked_user_ids = current_user.liked_swipes.pluck(:liked_user_id)
