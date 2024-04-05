@@ -38,7 +38,10 @@
               Settings
             </a>
             <ul class="dropdown-menu">
-             
+              <li class="nav-item">
+              <%= link_to 'Profile', current_user, class: "nav-link dropdown-item"%>
+              </li>
+              
               <li class="nav-item">
                <%= link_to 'Edit Profile', edit_user_path(current_user), class: "nav-link dropdown-item"%>
               </li>
