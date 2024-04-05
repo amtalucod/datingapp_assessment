@@ -13,33 +13,33 @@ class User < ApplicationRecord
     has_many :received_messages, class_name: 'Message'
     
     
-    before_save { self.email = email.downcase }
-    validates :first_name, presence: true, length: { maximum: 50 }
-    validates :last_name, presence: true, length: { maximum: 50 }
-    validates :mobile_number, presence: true, length: { maximum: 15 }
-        VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-    validates :email, presence: true, length: { maximum: 100 },
-                    format: { with: VALID_EMAIL_REGEX },
-                    uniqueness: true
-    validates :birthdate, presence: true     
-    validates :gender, presence: true  
-    validates :sexual_orientation, presence: true             
-    validates :gender_interest, presence: true  
-    validates :bio, presence: true, length: { maximum: 300 }  
-     has_secure_password     
-    validates :password, presence: true, length: { minimum: 6 }, allow_nil: true           
+    # before_save { self.email = email.downcase }
+    # validates :first_name, presence: true, length: { maximum: 50 }
+    # validates :last_name, presence: true, length: { maximum: 50 }
+    # validates :mobile_number, presence: true, length: { maximum: 15 }
+    #     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+    # validates :email, presence: true, length: { maximum: 100 },
+    #                 format: { with: VALID_EMAIL_REGEX },
+    #                 uniqueness: true
+    # validates :birthdate, presence: true     
+    # validates :gender, presence: true  
+    # validates :sexual_orientation, presence: true             
+    # validates :gender_interest, presence: true  
+    # validates :bio, presence: true, length: { maximum: 300 }  
+      has_secure_password     
+     validates :password, presence: true, length: { minimum: 6 }, allow_nil: true           
     
-    validate :validate_photo_count, on: :create
-    private
-    def validate_photo_count
-        splitted_photos = photos.split(",").length
-        final_count = (splitted_photos - 1) / 4
-        if final_count < 1
-        errors.add(:base, "At least one photo is required")
-        elsif final_count > 5
-        errors.add(:base, "Maximum of 5 photos allowed")
-        end
-    end
+    # validate :validate_photo_count, on: :create
+    # private
+    # def validate_photo_count
+    #     splitted_photos = photos.split(",").length
+    #     final_count = (splitted_photos - 1) / 4
+    #     if final_count < 1
+    #     errors.add(:base, "At least one photo is required")
+    #     elsif final_count > 5
+    #     errors.add(:base, "Maximum of 5 photos allowed")
+    #     end
+    # end
 
     
     

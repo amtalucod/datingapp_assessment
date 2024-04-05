@@ -39,10 +39,10 @@ class MessagesController < ApplicationController
       flash[:notice] = "Please log in." unless current_user
     end
     
-    # def correct_recipient 
-    #   @recipient = current_user.matches.find(params[:id])
-    #   redirect_to root_path unless @recipient
-    # end
+    #  def correct_recipient 
+    #    @recipient = current_user.swipes.matches.find(params[:id])
+    #    redirect_to root_path unless @recipient
+    #  end
     
     # def correct_recipient
     #   @recipient = Swipe.matches(current_user.id).find(params[:id])

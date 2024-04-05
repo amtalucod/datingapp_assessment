@@ -1,6 +1,6 @@
 class SwipesController < ApplicationController
-  before_action :logged_in_user, only: [:index, :matches, :likedpage]
-  before_action :admin_user, only: [:likedpage]
+  #before_action :logged_in_user, only: [:index, :matches, :likedpage]
+  #before_action :admin_user, only: [:likedpage]
   
     def index
       liked_user_ids = current_user.liked_swipes.pluck(:liked_user_id)
@@ -52,11 +52,11 @@ class SwipesController < ApplicationController
         current_user.swipes.exists?(liked_user_id: swipe.user_id, liked: true)
       end
 
-      # @matches = matched_swipes.map(&:liked_user)
-      # @images = @matches.map(&:images)
+       @matches = matched_swipes.map(&:liked_user)
+       @images = @matches.map(&:images)
       
-      @matches = matched_swipes.map(&:liked_user).compact
-      @images = @matches.map { |user| user.images if user }.compact
+      #@matches = matched_swipes.map(&:liked_user).compact
+      #@images = @matches.map { |user| user.images if user }.compact
       
       #matched_user_counts = liked_swipes.group(:liked_user_id).count
     end
