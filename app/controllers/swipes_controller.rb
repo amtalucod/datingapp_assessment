@@ -20,11 +20,13 @@ class SwipesController < ApplicationController
       @users.each do |user|
         @swipes = user.swipes.all
       liked_swipes = user.swipes.where(liked: true)
+      
   
       # Find match
       matched_user_ids = liked_swipes.select do |swipe|
         user.swipes.exists?(liked_user_id: swipe.user_id, liked: true)
       end.pluck(:user_id)
+      
       
       # Group the swipes by liked_user_id and count the number of swipes for each user
       matched_user_counts = liked_swipes.group(:liked_user_id).count
@@ -48,18 +50,26 @@ class SwipesController < ApplicationController
     
     def matches
       liked_swipes = current_user.swipes.where(liked: true)
+      liked_swipes = liked_swipes.where(liked_user_id: User.pluck(:id)) #remove deleted users from liked swipes object
+      # matched_swipes = liked_swipes.select do |swipe|
+      #   current_user.swipes.exists?(liked_user_id: swipe.user_id, liked: true)
+      # end
+      #Rails.logger.error("Alfred")
+      #Rails.logger.error(liked_swipes)
       matched_swipes = liked_swipes.select do |swipe|
-        current_user.swipes.exists?(liked_user_id: swipe.user_id, liked: true)
+        current_user.swipes.exists?(liked_user_id: swipe.user_id, liked: true) &&
+          #swipe.user.swipes.exists?(liked_user_id: current_user.id, liked: true)
+          swipe.liked_user.swipes.exists?(liked_user_id: current_user.id, liked: true)
       end
 
-       @matches = matched_swipes.map(&:liked_user)
+       @matches = matched_swipes.reject { |swipe| swipe.liked_user_id == current_user.id }.map(&:liked_user)
        @images = @matches.map(&:images)
-      
+    end  
       #@matches = matched_swipes.map(&:liked_user).compact
       #@images = @matches.map { |user| user.images if user }.compact
       
       #matched_user_counts = liked_swipes.group(:liked_user_id).count
-    end
+    
     
     
     
@@ -74,13 +84,15 @@ class SwipesController < ApplicationController
         user.swipes.create(user_id: current_user.id, liked_user_id: user.id, liked: true, matched: true)
       end
     
-      redirect_to swipes_path
+      #redirect_to swipes_path
+      render json: { message: 'success' }
     end
     
     def dislike
       user = User.find(params[:id])
       current_user.swipes.create(disliked_user: user, liked: false)
-      redirect_to swipes_path
+      #redirect_to swipes_path
+      render json: { message: 'success' }
     end
     
     private

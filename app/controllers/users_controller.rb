@@ -11,6 +11,18 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @images = Image.where(user: current_user)
               .order(:created_at)
+              
+    liked_swipes = @user.swipes.where(liked: true)
+    liked_swipes = liked_swipes.where(liked_user_id: User.pluck(:id)) #remove deleted users from liked swipes object
+    
+    matched_swipes = liked_swipes.select do |swipe|
+      @user.swipes.exists?(liked_user_id: swipe.user_id, liked: true) &&
+        swipe.liked_user.swipes.exists?(liked_user_id: @user.id, liked: true)
+    end
+
+      @matches = matched_swipes.reject { |swipe| swipe.liked_user_id == @user.id }.map(&:liked_user)
+      @images = @matches.map(&:images)
+              
   end
     
   def new

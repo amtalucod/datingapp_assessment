@@ -3,7 +3,6 @@
 
 <% if @matches.present? %>
     <% @matches.each do |matched_user| %>
-      <% next if matched_user == current_user %>
           <div class="card matches-card">
             <div>
               <%= image_tag matched_user.images[0].cloudinary_url, height: "150px", width: "159px", style: "object-fit: cover;", class: "card-img-top" %>
@@ -27,4 +26,5 @@
     </div>
   </div>
 <% end %>
+
  
