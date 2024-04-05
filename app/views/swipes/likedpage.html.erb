@@ -1,26 +1,29 @@
-<% provide(:title, "Swipe") %>
+<% provide(:title, "All Matches") %>
 <br/>
-<table class="table table-hover table-bordered">
-    <thead class="table-danger">
-      <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Matches</th>
-      </tr>
-    </thead>
-    
-    <tbody>
-        <% @matches.each do |matched_user| %>
-          <% if matched_user.present? %>
-          
+<h1>All Matches</h1>
+<div class="container">
+  <div class="center-container" style="display: ruby-text;">
+    <table class="table table-hover table-bordered" style="width: 80%;">
+        <thead class="table-danger" style="text-align: center">
           <tr>
-            <td><%= matched_user[:user]['first_name'] %></td>
-            <td><%= matched_user[:user]['last_name'] %></td>
-            <td><%= matched_user[:match_count] %></td>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Matches</th>
+          </tr>
+        </thead>
+        <tbody style="text-align: center; vertical-align: middle;">
+            <% @matches.each do |matched_user| %>
+              <% unless matched_user[:user].admin? %>
+              
+              <tr>
+                <td><%= matched_user[:user]['first_name'] %></td>
+                <td><%= matched_user[:user]['last_name'] %></td>
+                <td><%= matched_user[:match_count] %></td>
+              <% end %>
           <% end %>
-        
-      <% end %>
-    </tbody>
-</table>
+        </tbody>
+    </table>
+  </div>
+</div>
 
 

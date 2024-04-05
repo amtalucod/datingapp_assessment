@@ -96,13 +96,10 @@
           <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control", placeholder:"Password Confirmation" %>
         </div><br/>
         
-        
-        <!-- Image upload fields -->
         <div class="field">
           <%= f.label :photos, "Profile Image (1 photo required, 5 photos max)" %> <br/>
           <%= f.file_field :photos, multiple: true %>
         </div>
-        
         
         </br>
         <div class="actions">

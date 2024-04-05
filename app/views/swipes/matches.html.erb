@@ -4,20 +4,27 @@
 <% if @matches.present? %>
     <% @matches.each do |matched_user| %>
       <% next if matched_user == current_user %>
-
           <div class="card matches-card">
-            
-              <div>
-                <%= image_tag matched_user.images[0].cloudinary_url, height: "150px", width: "159px", style: "object-fit: cover;", class: "card-img-top" %>
-                <div class="card-body">
-                  <h6><p class="card-text"><%= matched_user&.first_name %> <%= matched_user&.last_name %></p></h6>
-                  <%= button_to "Message Me", messages_path(matched_user), method: :get, class: "btn btn-primary" %>
-                </div>
+            <div>
+              <%= image_tag matched_user.images[0].cloudinary_url, height: "150px", width: "159px", style: "object-fit: cover;", class: "card-img-top" %>
+              <div class="card-body">
+                <h6><p class="card-text"><%= matched_user&.first_name %> <%= matched_user&.last_name %></p></h6>
+                <%= button_to "Message Me", messages_path(matched_user), method: :get, class: "btn btn-primary" %>
               </div>
-           
+            </div>
         </div>
     <% end %>
 <% else %>
-  <h4>No matches found.</h4>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body text-center">
+            <h3>No matches yet.</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 <% end %>
  

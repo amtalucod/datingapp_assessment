@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   
   get 'sessions/new'
   get 'users/new'
-  root 'static_pages#home'
+  root 'sessions#new'
   get '/help' => 'static_pages#help'
   get '/about', to: 'static_pages#about'
   get '/contact', to: 'static_pages#contact'

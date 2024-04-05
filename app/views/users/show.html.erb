@@ -6,13 +6,19 @@
     <div class="col-md-10">
       <div class="jumbotron">
       <div class="d-flex flex-column">
-        <%#= image_tag @images[0].cloudinary_url, class: "img-thumbnail align-self-start", alt: "Image 1", data: { bs_toggle: "modal", bs_target: "#imageModal" }%>
-        <% if @images.present? && @images[0].present? %>
-          <%= image_tag @images[0].cloudinary_url, class: "img-thumbnail align-self-start", alt: "Image 1", data: { bs_toggle: "modal", bs_target: "#imageModal" } %>
-        <% else %>
-          <!-- Handle case when images are nil or empty -->
-          <%= image_tag "", class: "img-thumbnail align-self-start", alt: "Default Image", data: { bs_toggle: "modal", bs_target: "#imageModal" } %>
+        <%#= image_tag @user.images[0].cloudinary_url, class: "img-thumbnail align-self-start", alt: "Image 1", data: { bs_toggle: "modal", bs_target: "#imageModal" }%>
+        
+        <% if @user.images[0].present? %>
+          <%= image_tag @user.images[0].cloudinary_url, class: "img-thumbnail align-self-start", alt: "Image 1", data: { bs_toggle: "modal", bs_target: "#imageModal" }%>
         <% end %>
+        
+        <%# if @images[0].present? %>
+          <%#= image_tag @images[0].cloudinary_url, class: "img-thumbnail align-self-start", alt: "Image 1", data: { bs_toggle: "modal", bs_target: "#imageModal" } %>
+        <%# else %>
+          <!-- Handle case when images are nil or empty -->
+          <%#= image_tag "", class: "img-thumbnail align-self-start", alt: "Default Image", data: { bs_toggle: "modal", bs_target: "#imageModal" } %>
+        <%# end %>
+        
         <%= button_tag "Show Photo Gallery", type: "button", class: "btn btn-primary align-self-start", data: { bs_toggle: "modal", bs_target: "#imageModal" } %>
       </div>
       
@@ -37,7 +43,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <% @images.each do |image| %>
+        <% @user.images.each do |image| %>
           <%= image_tag image.cloudinary_url, class: "img-fluid", id: "modalImage", alt: "Image", style: "width: 250px; height: 300px; object-fit: cover;" %>
         <% end %>  
       </div>

@@ -1,6 +1,8 @@
 class SwipesController < ApplicationController
+  before_action :logged_in_user, only: [:index, :matches, :likedpage]
+  before_action :admin_user, only: [:likedpage]
+  
     def index
-      # Fetch user profiles based on gender interest
       liked_user_ids = current_user.liked_swipes.pluck(:liked_user_id)
       disliked_user_ids = current_user.disliked_swipes.pluck(:disliked_user_id)
       @users = User.where(gender: current_user.gender_interest)
@@ -19,7 +21,7 @@ class SwipesController < ApplicationController
         @swipes = user.swipes.all
       liked_swipes = user.swipes.where(liked: true)
   
-      # Find the user IDs of users who have swiped back
+      # Find match
       matched_user_ids = liked_swipes.select do |swipe|
         user.swipes.exists?(liked_user_id: swipe.user_id, liked: true)
       end.pluck(:user_id)
@@ -27,14 +29,20 @@ class SwipesController < ApplicationController
       # Group the swipes by liked_user_id and count the number of swipes for each user
       matched_user_counts = liked_swipes.group(:liked_user_id).count
       
-      # Retrieve the matched users along with their counts
+      # Retrieve matched + count
       @indv_matches = User.where(id: matched_user_ids)
               .includes(:images)
               .map { |user| { user: user, match_count: matched_user_counts[user.id] || 0 } }
       
-      #@matches.push(@indv_matches)
+      # Add indv match to match array
       @matches.concat(@indv_matches)
       end
+      
+      # Add users no match 
+        users_without_matches = User.where.not(id: @matches.map { |match| match[:user].id })
+        .includes(:images)
+        .map { |user| { user: user, match_count: 0 } }
+      @matches.concat(users_without_matches)
       
     end
     
@@ -44,10 +52,13 @@ class SwipesController < ApplicationController
         current_user.swipes.exists?(liked_user_id: swipe.user_id, liked: true)
       end
 
-      @matches = matched_swipes.map(&:liked_user)
-      @images = @matches.map(&:images)
+      # @matches = matched_swipes.map(&:liked_user)
+      # @images = @matches.map(&:images)
       
-      matched_user_counts = liked_swipes.group(:liked_user_id).count
+      @matches = matched_swipes.map(&:liked_user).compact
+      @images = @matches.map { |user| user.images if user }.compact
+      
+      #matched_user_counts = liked_swipes.group(:liked_user_id).count
     end
     
     
@@ -56,9 +67,9 @@ class SwipesController < ApplicationController
       user = User.find(params[:id])
       current_user.swipes.create(liked_user: user, liked: true)
       
-      # Check if the liked user has also liked the current user
+      # Check if liked user also liked current_user
       if Swipe.exists?(user_id: user.id, liked_user_id: current_user.id, liked: true)
-        # Both users have liked each other, so it's a match
+      # Both users have liked = match
         current_user.swipes.create(user_id: user.id, liked_user_id: current_user.id, liked: true, matched: true)
         user.swipes.create(user_id: current_user.id, liked_user_id: user.id, liked: true, matched: true)
       end
@@ -72,5 +83,20 @@ class SwipesController < ApplicationController
       redirect_to swipes_path
     end
     
-  
+    private
+    
+      def logged_in_user
+        unless logged_in?
+          store_location
+          flash[:notice] = "Please log in."
+          redirect_to login_path
+        end
+      end
+      
+      def admin_user
+        if current_user.nil? || !current_user.admin?
+          flash[:notice] = "Not Authorized."
+          redirect_to swipes_path
+        end
+      end
 end

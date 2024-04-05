@@ -1,12 +1,10 @@
 class UsersController < ApplicationController
-  #before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
-  #before_action :correct_user, only: [:edit, :update]
-  #before_action :admin_user, only: :destroy
+  before_action :logged_in_user, only: [:index]
+  before_action :correct_user, only: [:edit, :update, :destroy, :show]
+  before_action :admin_user, only: [:index, :destroy]
   
   def index
     @users = User.all
-    #@users = User.joins("INNER JOIN (SELECT cloudinary_url, user_id FROM images ORDER BY id LIMIT 1) AS first_image ON users.id = first_image.user_id")
-
   end
   
   def show
@@ -46,11 +44,9 @@ class UsersController < ApplicationController
       flash[:notice] = "Welcome, User successfully created !"
       redirect_to @user
     else
-      
       @user.errors.full_messages.each do |msg|
         Rails.logger.error("Failed to save user: #{msg}")
       end
-      
       flash.now[:notice] = "Error creating user. Please fix the following errors:"
       render 'new'
     end
@@ -65,7 +61,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:notice] = "Profile updated"
-      redirect_to @user
+      redirect_to swipes_path
     else
       flash[:notice] = "Error"
       render 'edit'
@@ -75,7 +71,7 @@ class UsersController < ApplicationController
   def destroy
     User.find(params[:id]).destroy
     flash[:notice] = "User deleted"
-    redirect_to users_url
+    redirect_to users_path
   end
     
   private
@@ -94,18 +90,25 @@ class UsersController < ApplicationController
         store_location
         flash[:notice] = "Please log in."
         redirect_to login_path
+      end
     end
     
     # Confirms the correct user.
     def correct_user
       @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user)
+  
+      unless current_user?(@user) || current_user.admin?
+        flash[:notice] = "Not Authorized."
+        redirect_to swipes_path
+      end
+    end
+  
+  
+    #Confirms an admin user.
+    def admin_user
+      if current_user.nil? || !current_user.admin?
+        flash[:notice] = "Not Authorized."
+        redirect_to swipes_path
+      end
     end
   end
-  
-  #Confirms an admin user.
-  def admin_user
-    flash[:notice] = "Not Authorized."
-    redirect_to(root_url) unless current_user.admin?
-  end
-end
