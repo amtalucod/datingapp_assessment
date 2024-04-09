@@ -90,7 +90,9 @@
                       <% imgs.push(image.cloudinary_url) %>
                   <% end %> 
                   this.createGalleryModal(<%= user.id %>, '<%= imgs.join(", ") %>')
-                  this.push(<%= user.id %>,'<%= imgs[0] %>', '<%= user.first_name + " " + user.last_name%>', '<%= user.location.country  + " | " + user.location.state_region + " | " + user.location.city %>', '<%= user.bio %>')
+                  // to escape special characters in bio like, single quotes, double qoutes, new line
+                  <% bio_escaped = escape_javascript(user.bio) %>
+                  this.push(<%= user.id %>,'<%= imgs[0] %>', '<%= user.first_name + " " + user.last_name%>', '<%= user.location.country  + " | " + user.location.state_region + " | " + user.location.city %>', '<%= bio_escaped %>')
                   <% end %> 
 
                 // handle gestures
@@ -314,7 +316,7 @@
                 
                 let user_data = '<h4 class="card-title">' + name + '</h4>' +
                 '          <h7>' + address + '</h7>' +
-                '            <textarea class="form-control" rows="3" readonly="">Bio:' + bio +
+                '            <textarea class="form-control" rows="3" readonly="">Bio:' + bio + 
                 '</textarea>'
                 card.innerHTML = "<div class = 'swipe_bot'>" + button + user_data + "</div>"
                 
