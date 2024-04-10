@@ -20,13 +20,11 @@ class SwipesController < ApplicationController
       @users.each do |user|
         @swipes = user.swipes.all
       liked_swipes = user.swipes.where(liked: true)
-      
   
       # Find match
       matched_user_ids = liked_swipes.select do |swipe|
         user.swipes.exists?(liked_user_id: swipe.user_id, liked: true)
       end.pluck(:user_id)
-      
       
       # Group the swipes by liked_user_id and count the number of swipes for each user
       matched_user_counts = liked_swipes.group(:liked_user_id).count

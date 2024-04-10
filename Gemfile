@@ -24,6 +24,9 @@ gem "sprockets-rails"
 
 gem 'cloudinary'
 
+# Fetches a list of all countries
+gem 'countries', require: 'countries/global'
+
 # Use postgresql as the database for Active Record
 gem 'pg'
 

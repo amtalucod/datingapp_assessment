@@ -45,17 +45,22 @@
         <br/>
         <div class="field form-group">
           <%= f.label :gender %><br />
-          <%= f.select :gender, [['Male', 'male'], ['Female', 'female']], { prompt: 'Select gender' }, class: "form-control" %>
+          <%= f.select :gender, [['Male', 'male'], ['Female', 'female'], ['Non-binary', 'non-binary'], ['Genderqueer', 'genderqueer'], ['Genderfluid', 'genderfluid'], 
+          ['Agender', 'agender'], ['Bigender', 'bigender'], ['Two-Spirit', 'two-spirit'], ['Transgender', 'transgender'], ['Gender nonconforming', 'gender nonconforming']], { prompt: 'Select gender' }, class: "form-control" %>
         </div>
         
+        <br/>
         <div class="field form-group">
-          <% f.label :sexual_orientation %><br />
-          <%= f.text_field :sexual_orientation, autofocus: true, autocomplete: "sexual-orientation", class: "form-control", placeholder: "Sexual Orientation" %><br />
-        </div>
+          <%= f.label :sexual_orientation %><br />
+          <%= f.select :sexual_orientation, [['Heterosexual (Straight)', 'heterosexual (Straight)'], ['Homosexual (Gay/Lesbian)', 'homosexual (Gay/Lesbian)'],
+                        ['Bisexual', 'bisexual'], ['Pansexual', 'pansexual'], ['Asexual', 'asexual'], ['Demisexual', 'demisexual'], ['Queer', 'queer'],
+                        ['Questioning', 'questioning'], ['Polysexual', 'polysexual'], ['Androsexual/Gynesexual', 'androsexual/gynesexual']],  { prompt: 'Select sexual-orientation' }, class: "form-control" %>
+        </div><br/>
         
         <div class="field form-group">
           <%= f.label :gender_interest %><br />
-          <%= f.select :gender_interest, [['Male', 'male'], ['Female', 'female']], { prompt: 'Select gender' }, class: "form-control" %>
+          <%= f.select :gender_interest, [['Male', 'male'], ['Female', 'female'], ['Non-binary', 'non-binary'], ['Genderqueer', 'genderqueer'], ['Genderfluid', 'genderfluid'], 
+                        ['Agender', 'agender'], ['Bigender', 'bigender'], ['Two-Spirit', 'two-spirit'], ['Transgender', 'transgender'], ['Gender nonconforming', 'gender nonconforming']], { prompt: 'Select gender' }, class: "form-control" %>
         </div>
         <br/>
         

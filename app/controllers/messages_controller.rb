@@ -33,6 +33,10 @@ class MessagesController < ApplicationController
       end
     end
     
+    def index
+      @conversations = current_user.received_messages.includes(:sender).group_by(&:sender)
+    end
+    
     private
     def authenticate_user!
       redirect_to login_path unless current_user

@@ -9,7 +9,7 @@
         <%#= image_tag @user.images[0].cloudinary_url, class: "img-thumbnail align-self-start", alt: "Image 1", data: { bs_toggle: "modal", bs_target: "#imageModal" }%>
         
         <% if @user.images[0].present? %>
-          <%= image_tag @user.images[0].cloudinary_url, class: "img-thumbnail align-self-start", alt: "Image 1", data: { bs_toggle: "modal", bs_target: "#imageModal" }%>
+          <%= image_tag @user.images[0].cloudinary_url, class: "img-thumbnail align-self-start", alt: "Image 1", data: { bs_toggle: "modal", bs_target: "#imageModal"}, style: "width: 300px; height: 400px; object-fit: cover;" %>
         <% end %>
         
         <%# if @images[0].present? %>

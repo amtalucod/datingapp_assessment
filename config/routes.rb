@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   
   get '/messages/:id' => 'messages#show', as: 'messages'
   post '/messages/:id' => 'messages#create'
+  get '/inbox' => 'messages#inbox'
 end
 
 
